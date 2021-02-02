@@ -52,9 +52,10 @@ class PageContainer extends Component {
                     src={this.state.result.Poster}
                     year = {this.state.result.Year}
                     imdb={this.state.result.imdbRating}
-                    director={this.state.result.Director}
-                    genre={this.state.result.Genre}
-                    released={this.state.result.Released}
+                    country={this.state.result.Country}
+                    language={this.state.result.Language}
+                    plot={this.state.result.Plot}
+                    actors={this.state.result.Actors}
                   />
                 ) : (
                   <h3>No Results to Display</h3>
