@@ -7,6 +7,8 @@ import SearchForm from "./SearchForm";
 import MovieDetail from "./MovieDetail";
 import API from "../utils/API"
 
+let rottenRate = "";
+
 class PageContainer extends Component {
     state = {
       result: {},
@@ -20,7 +22,18 @@ class PageContainer extends Component {
   
     searchMovies = query => {
       API.search(query)
-        .then(res => this.setState({ result: res.data }))
+        .then((res) => {
+            this.setState({ result: res.data })
+            if (res.data.Title != null) {
+                console.log("rotten")
+                for (let i = 0; i < res.data.Ratings.length; i++) {
+                    if (res.data.Ratings[i].Source === "Rotten Tomatoes") {
+                        rottenRate = res.data.Ratings[i].Value
+                    }
+                }
+                console.log(rottenRate)
+            }
+    })
         .catch(err => console.log(err));
     };
   
@@ -52,6 +65,7 @@ class PageContainer extends Component {
                     src={this.state.result.Poster}
                     year = {this.state.result.Year}
                     imdb={this.state.result.imdbRating}
+                    rotten={rottenRate}
                     country={this.state.result.Country}
                     language={this.state.result.Language}
                     plot={this.state.result.Plot}
